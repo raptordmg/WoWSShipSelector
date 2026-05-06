@@ -1,6 +1,6 @@
 @WoWSShipSelector_HostAddress = http://localhost:5269
 
-GET {{WoWSShipSelector_HostAddress}}/weatherforecast/
+GET {{WoWSShipSelector_HostAddress}}/randomship/
 Accept: application/json
 
 ###
