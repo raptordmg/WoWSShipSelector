@@ -14,23 +14,42 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var names = new[]
-{
-    "Warspite", "Yamato", "Iowa", "Bismarck"
-};
+var ships = new List<Ship>();
+
+// Add ship population from WG API here
 
 app.MapGet("/randomship", () =>
 {
-    var ship = new Ship
-        (
-            Random.Shared.Next(1, 10),
-            Random.Shared.Next(-20, 55),
-            names[Random.Shared.Next(names.Length)]
-        );
-    return ship;
+    return ships[Random.Shared.Next(ships.Count)];
 })
 .WithName("GetRandomShip");
 
 app.Run();
 
-internal record Ship(int Tier, int ShipId, string? Name);
+internal record Ship(int Tier, string Name, Nation Nation, ShipType Type, bool IsPremium, bool IsSpecial, string ShipIdStr);
+
+internal enum Nation
+{
+    Usa = 0,
+    Japan = 1,
+    Ussr = 2,
+    Uk = 3,
+    Germany = 4,
+    Europe = 5,
+    PanAsia = 6,
+    France = 7,
+    Commonwealth = 8,
+    Italy = 9,
+    PanAmerica = 10,
+    Netherlands = 11,
+    Spain = 12
+}
+
+internal enum ShipType
+{
+    AirCarrier = 0,
+    Battleship = 1,
+    Destroyer = 2,
+    Cruiser = 3,
+    Submarine = 4
+}
